@@ -1,0 +1,9 @@
+.DS_Store
+
+# Local Netlify CLI state + local deploy output
+.netlify/
+netlify-dist/
+
+# Raw downloaded media (source files); not used directly by the live site
+assets/round2-media/
+

@@ -257,9 +257,56 @@
             font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
             letter-spacing: 0.03em; padding: 12px 28px;
             border: 1px solid var(--border); background: var(--white); color: var(--gray);
-            transition: all 0.3s var(--ease); cursor: default;
+            border-radius: 999px;
+            transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+            cursor: pointer;
+            -webkit-appearance: none; appearance: none;
         }
-        .pill:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-glow); }
+        .pill:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-glow); transform: translateY(-1px); }
+        .pill:focus-visible { outline: 3px solid rgba(139,47,139,0.35); outline-offset: 2px; }
+
+        /* Tooltip-style descriptions for "Perfect For" */
+        .pill { position: relative; }
+        .pill::before,
+        .pill::after {
+            position: absolute;
+            left: 50%;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(10px);
+            transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+            z-index: 30;
+        }
+        .pill::after {
+            content: attr(data-tooltip);
+            bottom: calc(100% + 14px);
+            width: min(280px, 80vw);
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(26,26,26,0.94);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.4;
+            text-transform: none;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+        }
+        .pill::before {
+            content: '';
+            bottom: calc(100% + 6px);
+            border: 8px solid transparent;
+            border-top-color: rgba(26,26,26,0.94);
+        }
+        .pill:hover::before,
+        .pill:hover::after,
+        .pill:focus-visible::before,
+        .pill:focus-visible::after,
+        .pill.is-open::before,
+        .pill.is-open::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
         /* ═══════════════════════════════════════
            GALLERY
@@ -281,6 +328,15 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.05);
             aspect-ratio: 4 / 5;
         }
+        .gallery__item--btn {
+            cursor: pointer;
+            padding: 0;
+            width: 100%;
+            border: none;
+            text-align: left;
+            -webkit-appearance: none; appearance: none;
+            background: transparent;
+        }
         .gallery__item img,
         .gallery__item video {
             width: 100%;
@@ -290,6 +346,143 @@
         }
         .gallery__item--video video { background: #000; }
         .gallery__item:focus-visible { outline: 3px solid rgba(139,47,139,0.35); outline-offset: 2px; }
+
+        .gallery__play {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.20) 100%);
+        }
+        .gallery__play::before {
+            content: '';
+            width: 62px;
+            height: 62px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            border: 1px solid rgba(255,255,255,0.28);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.25);
+            display: block;
+        }
+        .gallery__play::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 12px solid rgba(255,255,255,0.95);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            transform: translateX(2px);
+        }
+
+        /* Gallery modal (iPhone-friendly lightbox) */
+        .gallery-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gallery-modal.is-open { display: flex; }
+        .gallery-modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.62);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .gallery-modal__panel {
+            position: relative;
+            width: min(980px, 100%);
+            max-height: min(86vh, 760px);
+            background: rgba(255,255,255,0.96);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 26px;
+            box-shadow: 0 30px 120px rgba(0,0,0,0.35);
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+        .gallery-modal__topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .gallery-modal__title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+        .gallery-modal__close {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.10);
+            background: rgba(255,255,255,0.92);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            -webkit-appearance: none; appearance: none;
+            transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+        }
+        .gallery-modal__close:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.10); }
+        .gallery-modal__close:focus-visible { outline: 3px solid rgba(139,47,139,0.35); outline-offset: 2px; }
+        .gallery-modal__close svg { width: 18px; height: 18px; fill: var(--dark); }
+        .gallery-modal__stage {
+            position: relative;
+            background: #0b0b0b;
+            display: grid;
+            place-items: center;
+        }
+        .gallery-modal__stage img,
+        .gallery-modal__stage video {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #0b0b0b;
+        }
+        .gallery-modal__nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(0,0,0,0.28);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            -webkit-appearance: none; appearance: none;
+            transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+        }
+        .gallery-modal__nav:hover { background: rgba(0,0,0,0.38); transform: translateY(-50%) scale(1.04); }
+        .gallery-modal__nav:focus-visible { outline: 3px solid rgba(184,217,53,0.28); outline-offset: 2px; }
+        .gallery-modal__nav svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.92); }
+        .gallery-modal__nav--prev { left: 14px; }
+        .gallery-modal__nav--next { right: 14px; }
+        .gallery-modal__caption {
+            padding: 14px 16px 16px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--dark);
+            background: rgba(255,255,255,0.92);
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        body.modal-open { overflow: hidden; }
 
         /* ═══════════════════════════════════════
            QUOTE
@@ -402,6 +595,44 @@
         .form__success-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; color: var(--black); margin-bottom: 8px; }
         .form__success-text { font-size: 0.9rem; font-weight: 300; color: var(--gray); }
 
+        /* HoneyBook embed card (replaces bottom form) */
+        .hb-card {
+            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 44px 32px;
+            box-shadow: 0 16px 60px rgba(0,0,0,0.06);
+        }
+        .hb-card__label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 14px;
+        }
+        .hb-card__title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 14px;
+            line-height: 1.15;
+        }
+        .hb-card__text {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 26px;
+        }
+        .hb-card__fineprint {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--gray-light);
+        }
+        .hb-card__fineprint a { color: var(--gray); text-decoration: underline; text-underline-offset: 3px; }
+
         /* ═══════════════════════════════════════
            FOOTER
            ═══════════════════════════════════════ */
@@ -462,6 +693,9 @@
             }
             .gallery__grid::-webkit-scrollbar { display: none; }
             .gallery__item { flex: 0 0 86%; scroll-snap-align: center; }
+            .gallery-modal { padding: 12px; }
+            .gallery-modal__panel { max-height: 88vh; }
+            .gallery-modal__caption { font-size: 0.88rem; }
             .form { grid-template-columns: 1fr; }
             .quote-section { padding: 60px 20px; }
             .footer__inner { flex-direction: column; gap: 16px; text-align: center; }
@@ -636,14 +870,14 @@
                 <div class="divider divider--center"></div>
             </div>
             <div class="events__pills reveal">
-                <span class="pill">Birthdays</span>
-                <span class="pill">Weddings</span>
-                <span class="pill">Bridal Showers</span>
-                <span class="pill">Baby Showers</span>
-                <span class="pill">Graduations</span>
-                <span class="pill">Corporate Events</span>
-                <span class="pill">Private Parties</span>
-                <span class="pill">Celebrations</span>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Signature cocktails and a polished bar setup that turn birthdays into a full experience — fun, elevated, and effortless.">Birthdays</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Seamless service from cocktail hour through the last toast, with custom menus that match your vision.">Weddings</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Pretty, photo-ready pours and themed sips tailored to the bride — perfect for a chic daytime celebration.">Bridal Showers</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Elegant mocktails and crowd-pleasers so every guest can celebrate beautifully — alcohol-free options included.">Baby Showers</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="High-energy service with a menu that scales for open houses and big family moments — fast pours, smooth flow.">Graduations</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Professional, efficient bar service that feels on-brand and keeps lines short — ideal for mixers and team events.">Corporate Events</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="A curated menu, great energy, and clean execution so you can host like a pro and actually enjoy your night.">Private Parties</button>
+                <button class="pill" type="button" aria-expanded="false" data-tooltip="Any reason, any theme — custom cocktails, warm hospitality, and a bar moment your guests will remember.">Celebrations</button>
             </div>
         </div>
     </section>
@@ -658,25 +892,23 @@
                 <p class="section-text">A peek at the energy we bring — from setup to last call.</p>
             </div>
             <div class="gallery__grid" aria-label="Photo and video gallery">
-                <a class="gallery__item reveal" href="assets/gallery/team-photo-1.jpeg" target="_blank" rel="noopener noreferrer" aria-label="Open team photo (opens in a new tab)">
+                <button class="gallery__item gallery__item--btn reveal" type="button" data-gallery-item data-type="image" data-src="assets/gallery/team-photo-1.jpeg" data-alt="NellasPerfectMix team at an event" data-caption="Our team on-site — polished, friendly, and ready to pour." aria-label="View team photo">
                     <img src="assets/gallery/team-photo-1.jpeg" alt="NellasPerfectMix team at an event" loading="lazy" />
-                </a>
-                <a class="gallery__item reveal" href="assets/gallery/event-photo-1.jpeg" target="_blank" rel="noopener noreferrer" aria-label="Open event photo (opens in a new tab)">
+                </button>
+                <button class="gallery__item gallery__item--btn reveal" type="button" data-gallery-item data-type="image" data-src="assets/gallery/event-photo-1.jpeg" data-alt="Jenella at an event bar setup" data-caption="Jenella bringing the bar moment to life with style and confidence." aria-label="View event photo">
                     <img src="assets/gallery/event-photo-1.jpeg" alt="Jenella at an event bar setup" loading="lazy" />
-                </a>
-                <a class="gallery__item reveal" href="assets/photo.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open founder photo (opens in a new tab)">
+                </button>
+                <button class="gallery__item gallery__item--btn reveal" type="button" data-gallery-item data-type="image" data-src="assets/photo.jpg" data-alt="Jenella posing at a bar setup" data-caption="Elevated presentation, seamless service — every detail considered." aria-label="View founder photo">
                     <img src="assets/photo.jpg" alt="Jenella posing at a bar setup" loading="lazy" />
-                </a>
-                <div class="gallery__item gallery__item--video reveal" aria-label="Event video">
-                    <video controls playsinline preload="metadata" poster="assets/gallery/event-video-1-poster.jpg">
-                        <source src="assets/gallery/event-video-1.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="gallery__item gallery__item--video reveal" aria-label="Event video">
-                    <video controls playsinline preload="metadata" poster="assets/gallery/event-video-2-poster.jpg">
-                        <source src="assets/gallery/event-video-2.mp4" type="video/mp4">
-                    </video>
-                </div>
+                </button>
+                <button class="gallery__item gallery__item--btn reveal" type="button" data-gallery-item data-type="video" data-src="assets/gallery/event-video-1.mp4" data-poster="assets/gallery/event-video-1-poster.jpg" data-caption="Event highlight — a quick look at the setup and the energy." aria-label="Play event highlight video">
+                    <img src="assets/gallery/event-video-1-poster.jpg" alt="Event highlight video thumbnail" loading="lazy" />
+                    <span class="gallery__play" aria-hidden="true"></span>
+                </button>
+                <button class="gallery__item gallery__item--btn reveal" type="button" data-gallery-item data-type="video" data-src="assets/gallery/event-video-2.mp4" data-poster="assets/gallery/event-video-2-poster.jpg" data-caption="Short reel-style moment — cocktails, details, and good vibes." aria-label="Play event highlight video">
+                    <img src="assets/gallery/event-video-2-poster.jpg" alt="Event highlight video thumbnail" loading="lazy" />
+                    <span class="gallery__play" aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     </section>
@@ -689,7 +921,7 @@
                     <p class="section-label">Get In Touch</p>
                     <h2 class="section-heading">Let's Create <em>Something Special</em></h2>
                     <div class="divider"></div>
-                    <p class="section-text">Ready to elevate your next event? Fill out the form and we'll craft the perfect experience for you and your guests.</p>
+                    <p class="section-text">Ready to elevate your next event? Tap below to open our HoneyBook inquiry form — we’ll respond within 24–48 hours.</p>
                     <div class="trust-line trust-line--left" aria-label="Credentials">
                         <span class="trust-badge">Bartending License</span>
                         <span class="trust-badge">Food Handler License</span>
@@ -716,50 +948,39 @@
                     </div>
                 </div>
                 <div class="contact__form-wrap reveal-right">
-                    <form class="form" id="contactForm" name="inquiry" method="POST" data-netlify="true" onsubmit="submitForm(event)">
-                        <input type="hidden" name="form-name" value="inquiry">
-                        <div class="form__group form__group--full">
-                            <label class="form__label">Name</label>
-                            <input type="text" class="form__input" name="name" placeholder="Your name" required>
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Email</label>
-                            <input type="email" class="form__input" name="email" placeholder="your@email.com" required>
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Phone</label>
-                            <input type="tel" class="form__input" name="phone" placeholder="(000) 000-0000">
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Event Type</label>
-                            <select class="form__select" name="eventType" onchange="this.classList.toggle('has-value', this.value !== '')">
-                                <option value="">Select event type</option>
-                                <option>Birthday</option><option>Wedding</option>
-                                <option>Bridal Shower</option><option>Baby Shower</option>
-                                <option>Graduation</option><option>Corporate Event</option>
-                                <option>Private Party</option><option>Other</option>
-                            </select>
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Event Date</label>
-                            <input type="date" class="form__input" name="eventDate">
-                        </div>
-                        <div class="form__group form__group--full">
-                            <label class="form__label">Tell us about your event</label>
-                            <textarea class="form__textarea" name="message" placeholder="Guest count, location, vision — anything you'd like us to know!" style="min-height:110px;"></textarea>
-                        </div>
-                        <div class="form__submit">
-                            <button type="submit" class="btn btn--dark">Send Inquiry</button>
-                        </div>
-                        <div class="form__success" id="formSuccess">
-                            <h3 class="form__success-title">Thank You!</h3>
-                            <p class="form__success-text">We received your inquiry and will be in touch within 24-48 hours.</p>
-                        </div>
-                    </form>
+                    <div class="hb-card" aria-label="HoneyBook inquiry form">
+                        <div class="hb-card__label">HoneyBook</div>
+                        <div class="hb-card__title">Inquiry Form</div>
+                        <div class="hb-card__text">Submit your event details through our secure HoneyBook form for the fastest response and a custom quote.</div>
+                        <a class="btn btn--dark" href="https://www.honeybook.com/widget/nellas_perfect_mix_llc_296847/cf_id/698816091425a8002c721485" target="_blank" rel="noopener noreferrer" aria-label="Open HoneyBook inquiry form (opens in a new tab)">Open HoneyBook Form</a>
+                        <div class="hb-card__fineprint">Prefer email? <a href="mailto:Nellaperfectmix@gmail.com">Nellaperfectmix@gmail.com</a></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ═══ GALLERY MODAL ═══ -->
+    <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+        <div class="gallery-modal__backdrop" data-gallery-close="true" aria-hidden="true"></div>
+        <div class="gallery-modal__panel" role="dialog" aria-modal="true" aria-label="Gallery viewer">
+            <div class="gallery-modal__topbar">
+                <div class="gallery-modal__title">Gallery</div>
+                <button class="gallery-modal__close" type="button" data-gallery-close="true" aria-label="Close gallery viewer">
+                    <svg viewBox="0 0 24 24"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/></svg>
+                </button>
+            </div>
+            <div class="gallery-modal__stage" id="galleryModalStage">
+                <button class="gallery-modal__nav gallery-modal__nav--prev" type="button" data-gallery-nav="prev" aria-label="Previous item">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41a1 1 0 0 1 0 1.41L11.83 12l3.58 3.18a1 1 0 1 1-1.32 1.5l-4.5-4a1 1 0 0 1 0-1.5l4.5-4a1 1 0 0 1 1.32.23z"/></svg>
+                </button>
+                <button class="gallery-modal__nav gallery-modal__nav--next" type="button" data-gallery-nav="next" aria-label="Next item">
+                    <svg viewBox="0 0 24 24"><path d="M8.59 16.59a1 1 0 0 1 0-1.41L12.17 12 8.59 8.82a1 1 0 1 1 1.32-1.5l4.5 4a1 1 0 0 1 0 1.5l-4.5 4a1 1 0 0 1-1.32-.23z"/></svg>
+                </button>
+            </div>
+            <div class="gallery-modal__caption" id="galleryModalCaption"></div>
+        </div>
+    </div>
 
     <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
@@ -799,26 +1020,159 @@
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                const t = document.querySelector(href);
+                if (!t) return;
                 e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
-                if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
+                const top = t.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top, behavior: 'smooth' });
             });
         });
 
-        // Form — submit to Netlify Forms
-        function submitForm(e) {
-            e.preventDefault();
-            const form = e.target;
-            const data = new URLSearchParams(new FormData(form)).toString();
-            fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
-                .then(() => {
-                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
-                    document.getElementById('formSuccess').classList.add('show');
-                })
-                .catch(() => {
-                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
-                    document.getElementById('formSuccess').classList.add('show');
-                });
+        // Perfect For: on touch devices, tap a pill to toggle its description.
+        const pills = Array.from(document.querySelectorAll('.pill[data-tooltip]'));
+        const closeAllPills = () => {
+            pills.forEach(p => {
+                p.classList.remove('is-open');
+                p.setAttribute('aria-expanded', 'false');
+            });
+        };
+        pills.forEach(p => {
+            p.addEventListener('click', (e) => {
+                const wasOpen = p.classList.contains('is-open');
+                closeAllPills();
+                if (!wasOpen) {
+                    p.classList.add('is-open');
+                    p.setAttribute('aria-expanded', 'true');
+                }
+                e.stopPropagation();
+            });
+        });
+        document.addEventListener('click', closeAllPills);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllPills(); });
+
+        // Gallery modal (lightbox)
+        const galleryModal = document.getElementById('galleryModal');
+        const galleryStage = document.getElementById('galleryModalStage');
+        const galleryCaption = document.getElementById('galleryModalCaption');
+        const galleryItems = Array.from(document.querySelectorAll('[data-gallery-item]'));
+
+        let currentGalleryIndex = -1;
+        let lastFocusedEl = null;
+
+        const isGalleryOpen = () => galleryModal && galleryModal.classList.contains('is-open');
+
+        const clampGalleryIndex = (idx) => {
+            if (galleryItems.length === 0) return -1;
+            if (idx < 0) return galleryItems.length - 1;
+            if (idx >= galleryItems.length) return 0;
+            return idx;
+        };
+
+        const renderGalleryItem = (idx) => {
+            if (!galleryStage || !galleryCaption) return;
+            const safeIdx = clampGalleryIndex(idx);
+            if (safeIdx === -1) return;
+
+            const btn = galleryItems[safeIdx];
+            const type = btn.dataset.type || 'image';
+            const src = btn.dataset.src || '';
+            const alt = btn.dataset.alt || '';
+            const poster = btn.dataset.poster || '';
+            const caption = btn.dataset.caption || '';
+
+            const existing = galleryStage.querySelector('[data-gallery-media="true"]');
+            if (existing) existing.remove();
+
+            let mediaEl = null;
+
+            if (type === 'video') {
+                const video = document.createElement('video');
+                video.controls = true;
+                video.playsInline = true;
+                video.preload = 'metadata';
+                if (poster) video.poster = poster;
+
+                const source = document.createElement('source');
+                source.src = src;
+                source.type = 'video/mp4';
+                video.appendChild(source);
+                mediaEl = video;
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = alt;
+                img.loading = 'eager';
+                mediaEl = img;
+            }
+
+            mediaEl.setAttribute('data-gallery-media', 'true');
+            galleryStage.insertBefore(mediaEl, galleryStage.firstChild);
+            galleryCaption.textContent = caption;
+            currentGalleryIndex = safeIdx;
+        };
+
+        const openGallery = (idx) => {
+            if (!galleryModal || !galleryStage || galleryItems.length === 0) return;
+            lastFocusedEl = document.activeElement;
+            renderGalleryItem(idx);
+            galleryModal.classList.add('is-open');
+            galleryModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            const closeBtn = galleryModal.querySelector('.gallery-modal__close');
+            if (closeBtn) closeBtn.focus();
+        };
+
+        const closeGallery = () => {
+            if (!galleryModal || !galleryStage) return;
+            galleryModal.classList.remove('is-open');
+            galleryModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            const existing = galleryStage.querySelector('[data-gallery-media="true"]');
+            if (existing && existing.tagName === 'VIDEO') existing.pause();
+            if (existing) existing.remove();
+            if (galleryCaption) galleryCaption.textContent = '';
+            currentGalleryIndex = -1;
+            if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+        };
+
+        galleryItems.forEach((btn, idx) => btn.addEventListener('click', () => openGallery(idx)));
+        document.querySelectorAll('[data-gallery-close="true"]').forEach(el => el.addEventListener('click', closeGallery));
+        document.querySelectorAll('[data-gallery-nav]').forEach(el => {
+            el.addEventListener('click', () => {
+                if (!isGalleryOpen()) return;
+                const dir = el.getAttribute('data-gallery-nav');
+                if (dir === 'prev') renderGalleryItem(currentGalleryIndex - 1);
+                if (dir === 'next') renderGalleryItem(currentGalleryIndex + 1);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!isGalleryOpen()) return;
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowLeft') renderGalleryItem(currentGalleryIndex - 1);
+            if (e.key === 'ArrowRight') renderGalleryItem(currentGalleryIndex + 1);
+        });
+
+        // Swipe navigation for iPhone/Android
+        let touchStartX = 0;
+        let touchStartY = 0;
+        if (galleryStage) {
+            galleryStage.addEventListener('touchstart', (e) => {
+                if (!isGalleryOpen() || !e.touches || e.touches.length === 0) return;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            galleryStage.addEventListener('touchend', (e) => {
+                if (!isGalleryOpen() || !e.changedTouches || e.changedTouches.length === 0) return;
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+                if (dx < 0) renderGalleryItem(currentGalleryIndex + 1);
+                if (dx > 0) renderGalleryItem(currentGalleryIndex - 1);
+            }, { passive: true });
         }
     </script>
 </body>
