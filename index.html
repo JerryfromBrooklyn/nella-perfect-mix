@@ -2,495 +2,494 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>NellasPerfectMix — Where Details Meet Cocktails</title>
     <meta name="description" content="NellasPerfectMix is a traveling bartender service delivering stylish, stress-free experiences with custom cocktails, mocktails, and professional staff for every celebration.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --black: #09090b;
-            --white: #fafafa;
-            --cream: #f8f6f3;
-            --accent: #c8a26b;
-            --accent-light: #dbb98a;
-            --accent-glow: rgba(200, 162, 107, 0.15);
-            --gray-50: #fafafa;
-            --gray-100: #f4f4f5;
-            --gray-200: #e4e4e7;
-            --gray-300: #d4d4d8;
-            --gray-400: #a1a1aa;
-            --gray-500: #71717a;
-            --gray-600: #52525b;
-            --gray-700: #3f3f46;
-            --gray-800: #27272a;
-            --gray-900: #18181b;
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out: cubic-bezier(0, 0, 0.2, 1);
+            --white: #ffffff;
+            --off-white: #faf9f7;
+            --light: #f5f3f0;
+            --black: #1a1a1a;
+            --dark: #2d2d2d;
+            --gray: #6b6b6b;
+            --gray-light: #999;
+            --border: #e8e5e1;
+            --purple: #8B2F8B;
+            --purple-light: #a94ca9;
+            --purple-glow: rgba(139, 47, 139, 0.08);
+            --green: #b8d935;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Jost', -apple-system, Helvetica, Arial, sans-serif;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --max-w: 1200px;
         }
 
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--gray-600);
-            background: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* ── Noise texture overlay ── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 9998;
-            pointer-events: none;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 256px;
+            font-family: var(--font-body); color: var(--dark);
+            background: var(--white); overflow-x: hidden; line-height: 1.6;
         }
 
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; }
 
-        /* ── Scroll Animations ── */
-        .fade-in { opacity: 0; transform: translateY(32px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-left { opacity: 0; transform: translateX(-48px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-        .fade-left.visible { opacity: 1; transform: translateX(0); }
-        .fade-right { opacity: 0; transform: translateX(48px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-        .fade-right.visible { opacity: 1; transform: translateX(0); }
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
         /* ═══════════════════════════════════════
-           NAVIGATION
+           NAV
            ═══════════════════════════════════════ */
         .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 20px 40px;
+            position: absolute; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.35s var(--ease);
+            padding: 0 40px;
+        }
+        .nav.scrolled { background: rgba(255,255,255,0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: var(--border); box-shadow: 0 1px 20px rgba(0,0,0,0.04); }
+        .nav__inner {
+            max-width: var(--max-w); margin: 0 auto;
             display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.4s var(--ease);
+            height: 180px;
         }
-        .nav.scrolled {
-            background: rgba(9, 9, 11, 0.85);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            padding: 14px 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+        .nav__logo img { height: 160px; width: auto; object-fit: contain; }
+        .nav__links { display: flex; align-items: center; gap: 32px; list-style: none; }
+        .nav__links a {
+            font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
+            letter-spacing: 0.06em; text-transform: uppercase; color: var(--dark);
+            transition: color 0.3s;
         }
-        .nav__logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.35rem; font-weight: 500;
-            color: var(--white); letter-spacing: -0.01em;
+        .nav__links a:hover { color: var(--purple); }
+        .nav__cta-btn {
+            font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            background: var(--dark); color: var(--white) !important;
+            padding: 12px 28px; transition: all 0.3s var(--ease);
         }
-        .nav__logo span { color: var(--accent); font-style: italic; }
-        .nav__menu { display: flex; align-items: center; gap: 36px; list-style: none; }
-        .nav__menu a {
-            font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em;
-            color: rgba(255,255,255,0.65);
-            transition: color 0.3s var(--ease);
-        }
-        .nav__menu a:hover { color: var(--white); }
-        .nav__cta {
-            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em;
-            color: var(--black) !important; background: var(--accent);
-            padding: 10px 24px; border-radius: var(--radius-full);
-            transition: all 0.3s var(--ease);
-        }
-        .nav__cta:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(200,162,107,0.3); }
-        .nav__burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
-        .nav__burger span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: all 0.3s var(--ease); }
-        .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-        .nav__burger.active span:nth-child(2) { opacity: 0; }
-        .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+        .nav__cta-btn:hover { background: var(--purple); }
+        .burger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; padding: 8px; }
+        .burger span { display: block; width: 22px; height: 1.5px; background: var(--dark); transition: all 0.3s var(--ease); }
+        .burger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+        .burger.active span:nth-child(2) { opacity: 0; }
+        .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
 
         /* ═══════════════════════════════════════
            HERO
            ═══════════════════════════════════════ */
         .hero {
-            position: relative; min-height: 100vh; display: flex;
-            align-items: center; justify-content: center; overflow: hidden;
-            background: var(--black);
+            position: relative; min-height: 100vh; min-height: 100svh;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: var(--white);
         }
-        .hero__mesh {
-            position: absolute; inset: 0; overflow: hidden;
-        }
-        .hero__mesh::before {
-            content: '';
-            position: absolute; width: 140%; height: 140%; top: -20%; left: -20%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(200,162,107,0.2) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 20%, rgba(156,120,80,0.15) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 80%, rgba(200,162,107,0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 60%, rgba(180,140,90,0.08) 0%, transparent 40%);
-            animation: meshFloat 12s ease-in-out infinite alternate;
-        }
-        .hero__mesh::after {
-            content: '';
+        .hero__bg {
             position: absolute; inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, var(--black) 70%);
+            background: url('assets/hero.jpg') center center/cover no-repeat;
         }
-        @keyframes meshFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-3%, 2%) scale(1.05); }
+        .hero__overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.75) 0%,
+                rgba(255,255,255,0.6) 30%,
+                rgba(255,255,255,0.55) 60%,
+                rgba(255,255,255,0.78) 80%,
+                rgba(255,255,255,0.95) 100%);
         }
         .hero__content {
             position: relative; z-index: 2; text-align: center;
-            max-width: 860px; padding: 0 24px;
+            max-width: 800px; padding: 120px 24px 60px;
         }
-        .hero__badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-            color: var(--accent); background: rgba(200,162,107,0.08);
-            border: 1px solid rgba(200,162,107,0.15);
-            padding: 8px 20px; border-radius: var(--radius-full);
-            margin-bottom: 32px;
-            opacity: 0; animation: heroFade 0.8s 0.2s var(--ease) forwards;
+        .hero__label {
+            font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.25em; text-transform: uppercase;
+            color: var(--purple); margin-bottom: 24px;
+            opacity: 0; animation: fadeUp 0.8s 0.2s var(--ease) forwards;
         }
-        .hero__badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
         .hero__title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 7.5vw, 6rem); font-weight: 400;
-            color: var(--white); line-height: 1.05; letter-spacing: -0.02em;
-            margin-bottom: 28px;
-            opacity: 0; animation: heroFade 0.8s 0.4s var(--ease) forwards;
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6.5vw, 5rem); font-weight: 500;
+            color: var(--black); line-height: 1.1; letter-spacing: -0.01em;
+            text-shadow: 0 14px 40px rgba(0,0,0,0.14);
+            margin-bottom: 24px;
+            opacity: 0; animation: fadeUp 0.8s 0.4s var(--ease) forwards;
         }
-        .hero__title em { font-style: italic; color: var(--accent); }
+        .hero__title em { font-style: italic; font-weight: 600; }
         .hero__sub {
-            font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.5);
-            max-width: 480px; margin: 0 auto 44px; line-height: 1.7;
-            opacity: 0; animation: heroFade 0.8s 0.6s var(--ease) forwards;
+            font-size: 1.02rem; font-weight: 400; color: var(--dark);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            max-width: 520px; margin: 0 auto 36px; line-height: 1.7;
+            opacity: 0; animation: fadeUp 0.8s 0.6s var(--ease) forwards;
         }
-        .hero__btns {
-            display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-            opacity: 0; animation: heroFade 0.8s 0.8s var(--ease) forwards;
+        .hero__btn {
+            display: inline-block; font-family: var(--font-body);
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: var(--dark); color: var(--white);
+            padding: 16px 40px; transition: all 0.3s var(--ease);
+            opacity: 0; animation: fadeUp 0.8s 0.8s var(--ease) forwards;
         }
+        .hero__btn:hover { background: var(--purple); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,47,139,0.2); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ═══════════════════════════════════════
+           SECTIONS
+           ═══════════════════════════════════════ */
+        .section { padding: 100px 24px; }
+        .section--light { background: var(--off-white); }
+        .container { max-width: var(--max-w); margin: 0 auto; }
+        .section-label {
+            font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+            letter-spacing: 0.25em; text-transform: uppercase;
+            color: var(--purple); margin-bottom: 16px;
+        }
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+            color: var(--black); line-height: 1.15; margin-bottom: 20px;
+        }
+        .section-heading em { font-style: italic; font-weight: 400; }
+        .section-text {
+            font-size: 0.95rem; font-weight: 300; line-height: 1.85;
+            color: var(--gray); max-width: 520px;
+        }
+        .divider { width: 50px; height: 1.5px; background: var(--purple); margin: 24px 0; }
+        .divider--center { margin: 24px auto; }
         .btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em;
-            padding: 16px 32px; border: none; cursor: pointer;
-            border-radius: var(--radius-full); transition: all 0.3s var(--ease);
+            display: inline-block; font-family: var(--font-body);
+            font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 14px 36px; transition: all 0.3s var(--ease); cursor: pointer; border: none;
         }
-        .btn--gold { background: var(--accent); color: var(--black); }
-        .btn--gold:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,162,107,0.35); }
-        .btn--ghost {
-            background: rgba(255,255,255,0.06); color: var(--white);
-            border: 1px solid rgba(255,255,255,0.12);
-        }
-        .btn--ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
-        .btn--dark { background: var(--black); color: var(--white); }
-        .btn--dark:hover { background: var(--gray-800); transform: translateY(-2px); }
-        .hero__scroll {
-            position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            opacity: 0; animation: heroFade 0.8s 1.2s var(--ease) forwards;
-        }
-        .hero__scroll span { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-        .hero__scroll-bar { width: 1px; height: 36px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollPulse 2.5s ease-in-out infinite; }
-        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-        @keyframes heroFade { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        .btn--dark { background: var(--dark); color: var(--white); }
+        .btn--dark:hover { background: var(--purple); transform: translateY(-2px); }
+        .btn--outline { background: transparent; color: var(--dark); border: 1.5px solid var(--dark); }
+        .btn--outline:hover { background: var(--dark); color: var(--white); }
 
         /* ═══════════════════════════════════════
-           MARQUEE
+           THREE FEATURES
            ═══════════════════════════════════════ */
-        .marquee {
-            padding: 18px 0; overflow: hidden;
-            background: var(--gray-900);
-            border-top: 1px solid rgba(255,255,255,0.04);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .marquee__track { display: flex; gap: 48px; width: max-content; animation: scroll 20s linear infinite; }
-        .marquee__item {
-            font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
-            text-transform: uppercase; color: rgba(255,255,255,0.25); white-space: nowrap;
-            display: flex; align-items: center; gap: 48px;
-        }
-        .marquee__item::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* ═══════════════════════════════════════
-           SECTIONS COMMON
-           ═══════════════════════════════════════ */
-        .section { padding: 120px 40px; }
-        .section--dark { background: var(--black); }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .overline {
-            font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
-            text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
-            display: flex; align-items: center; gap: 12px;
-        }
-        .overline::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400;
-            line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 20px;
-        }
-        .section-title em { font-style: italic; }
-        .section-text { font-size: 0.95rem; font-weight: 300; line-height: 1.8; max-width: 520px; }
-
-        /* ═══════════════════════════════════════
-           ABOUT
-           ═══════════════════════════════════════ */
-        .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .about__visual { position: relative; }
-        .about__img-wrapper {
-            position: relative; border-radius: var(--radius-lg); overflow: hidden;
-            aspect-ratio: 4/5;
-            background: linear-gradient(135deg, #1a1815 0%, #2a2520 30%, #1a1815 60%, #252018 100%);
-        }
-        .about__img-wrapper::before {
-            content: ''; position: absolute; inset: 0; z-index: 1;
-            background: radial-gradient(ellipse at 30% 40%, rgba(200,162,107,0.25) 0%, transparent 60%),
-                        radial-gradient(ellipse at 70% 70%, rgba(200,162,107,0.1) 0%, transparent 50%);
-        }
-        .about__img-wrapper img {
-            width: 100%; height: 100%; object-fit: cover;
-            position: relative; z-index: 0;
-        }
-        .about__img-overlay {
-            position: absolute; bottom: 24px; left: 24px; z-index: 3;
-            background: rgba(9,9,11,0.7); backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius-md); padding: 20px 24px;
-            display: flex; gap: 32px;
-        }
-        .about__img-stat { text-align: center; }
-        .about__img-stat-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem; font-weight: 500; color: var(--accent); line-height: 1;
-        }
-        .about__img-stat-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
-        .about__content .section-title { color: var(--gray-900); }
-        .about__content .section-text { color: var(--gray-500); }
-        .about__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
-        .about__tag {
-            font-size: 0.72rem; font-weight: 500; letter-spacing: 0.03em;
-            padding: 8px 16px; border-radius: var(--radius-full);
-            background: var(--gray-100); color: var(--gray-600);
-            border: 1px solid var(--gray-200);
-        }
-
-        /* ═══════════════════════════════════════
-           SERVICES — BENTO GRID
-           ═══════════════════════════════════════ */
-        .services__header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
-        .services__header .overline { justify-content: center; }
-        .services__header .overline::before { display: none; }
-        .services__header .section-title { color: var(--white); }
-        .services__header .section-text { color: rgba(255,255,255,0.45); margin: 0 auto; }
-        .bento {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: auto;
-            gap: 16px;
-        }
-        .bento__card {
-            position: relative; padding: 36px 32px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: var(--radius-lg);
-            transition: all 0.4s var(--ease); overflow: hidden;
-        }
-        .bento__card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0; transition: opacity 0.4s var(--ease);
-        }
-        .bento__card:hover { background: rgba(255,255,255,0.05); border-color: rgba(200,162,107,0.15); transform: translateY(-4px); }
-        .bento__card:hover::before { opacity: 1; }
-        .bento__card--wide { grid-column: span 2; }
-        .bento__icon {
-            width: 48px; height: 48px; border-radius: var(--radius-md);
-            background: var(--accent-glow); border: 1px solid rgba(200,162,107,0.15);
+        .features { text-align: center; }
+        .features__intro { max-width: 600px; margin: 0 auto 64px; }
+        .features__intro .section-text { margin: 0 auto; }
+        .features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+        .feature { text-align: center; }
+        .feature__icon {
+            width: 64px; height: 64px; margin: 0 auto 20px;
+            border-radius: 50%; background: var(--purple-glow);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; margin-bottom: 20px;
+            font-size: 1.6rem;
         }
-        .bento__title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem; font-weight: 500; color: var(--white);
-            margin-bottom: 10px;
+        .feature__title {
+            font-family: var(--font-display); font-size: 1.4rem; font-weight: 500;
+            color: var(--black); margin-bottom: 12px; text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
-        .bento__text { font-size: 0.85rem; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.4); }
+        .feature__text { font-size: 0.88rem; font-weight: 300; color: var(--gray); line-height: 1.75; }
 
         /* ═══════════════════════════════════════
-           QUOTE / VISUAL BREAK
+           ABOUT / FOUNDER
            ═══════════════════════════════════════ */
-        .quote-break {
-            position: relative; padding: 100px 40px; overflow: hidden;
-            background: linear-gradient(135deg, #0f0d0a 0%, #1a1610 50%, #0f0d0a 100%);
-        }
-        .quote-break::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 50% 50%, rgba(200,162,107,0.06) 0%, transparent 70%);
-        }
-        .quote-break__inner {
-            position: relative; z-index: 1;
-            max-width: 800px; margin: 0 auto; text-align: center;
-        }
-        .quote-break__mark {
-            font-family: 'Playfair Display', serif; font-size: 4rem;
-            color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;
-        }
-        .quote-break__text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 400;
-            font-style: italic; color: var(--white); line-height: 1.4;
-        }
-        .quote-break__text span { color: var(--accent); }
+        .about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+        .about__img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; }
+        .about__content .section-text + .section-text { margin-top: 16px; }
 
         /* ═══════════════════════════════════════
-           EVENTS / PERFECT FOR
+           SERVICES
            ═══════════════════════════════════════ */
-        .events__inner { text-align: center; }
-        .events__inner .overline { justify-content: center; }
-        .events__inner .overline::before { display: none; }
-        .events__inner .section-title { color: var(--gray-900); }
-        .events__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 48px; }
-        .event-pill {
-            font-size: 0.82rem; font-weight: 500; letter-spacing: 0.02em;
-            padding: 14px 28px; border-radius: var(--radius-full);
-            background: var(--white); color: var(--gray-600);
-            border: 1px solid var(--gray-200);
-            transition: all 0.35s var(--ease); cursor: default;
+        .services__header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+        .services__header .section-text { margin: 0 auto; }
+        .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .svc-card {
+            border: 1px solid var(--border); padding: 40px 28px; text-align: center;
+            transition: all 0.35s var(--ease); background: var(--white);
         }
-        .event-pill:hover {
-            border-color: var(--accent); color: var(--accent);
-            background: rgba(200,162,107,0.04);
-            transform: translateY(-2px); box-shadow: 0 4px 20px rgba(200,162,107,0.1);
+        .svc-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(139,47,139,0.08); }
+        .svc-card__icon { font-size: 2rem; margin-bottom: 16px; }
+        .svc-card__title {
+            font-family: var(--font-display); font-size: 1.25rem; font-weight: 500;
+            color: var(--black); margin-bottom: 12px;
         }
+        .svc-card__text { font-size: 0.85rem; font-weight: 300; color: var(--gray); line-height: 1.7; }
+
+        /* Trust / Credentials */
+        .trust-line {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center;
+            margin-top: 26px;
+        }
+        .trust-line--left { justify-content: flex-start; }
+        .trust-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            background: var(--white); color: var(--dark);
+            border-radius: 999px;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            user-select: none;
+        }
+        .trust-badge::before {
+            content: '';
+            width: 8px; height: 8px; border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 0 4px rgba(184,217,53,0.18);
+        }
+
+        /* ═══════════════════════════════════════
+           PERFECT FOR
+           ═══════════════════════════════════════ */
+        .events-section { text-align: center; }
+        .events-section .section-heading { margin-bottom: 8px; }
+        .events__pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px; }
+        .pill {
+            font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
+            letter-spacing: 0.03em; padding: 12px 28px;
+            border: 1px solid var(--border); background: var(--white); color: var(--gray);
+            transition: all 0.3s var(--ease); cursor: default;
+        }
+        .pill:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-glow); }
+
+        /* ═══════════════════════════════════════
+           GALLERY
+           ═══════════════════════════════════════ */
+        .gallery-section { text-align: center; }
+        .gallery__header { max-width: 640px; margin: 0 auto; }
+        .gallery__header .section-text { margin: 0 auto; }
+        .gallery__grid {
+            margin-top: 56px;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .gallery__item {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.05);
+            aspect-ratio: 4 / 5;
+        }
+        .gallery__item img,
+        .gallery__item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery__item--video video { background: #000; }
+        .gallery__item:focus-visible { outline: 3px solid rgba(139,47,139,0.35); outline-offset: 2px; }
+
+        /* ═══════════════════════════════════════
+           QUOTE
+           ═══════════════════════════════════════ */
+        .quote-section {
+            background: var(--dark); padding: 80px 24px; text-align: center;
+        }
+        .quote__text {
+            font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 300; font-style: italic; color: var(--white);
+            max-width: 700px; margin: 0 auto; line-height: 1.45;
+        }
+        .quote__text span { color: var(--green); }
 
         /* ═══════════════════════════════════════
            CONTACT
            ═══════════════════════════════════════ */
-        .contact__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; }
-        .contact__info .section-title { color: var(--white); }
-        .contact__info .section-text { color: rgba(255,255,255,0.45); }
-        .contact__block { margin-top: 36px; }
-        .contact__label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-        .contact__value { font-size: 0.92rem; font-weight: 300; color: rgba(255,255,255,0.6); }
-        .contact__value a { transition: color 0.3s; }
-        .contact__value a:hover { color: var(--accent); }
-        .contact__socials { display: flex; gap: 12px; margin-top: 40px; }
-        .contact__social {
-            width: 44px; height: 44px; border-radius: var(--radius-md);
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s var(--ease);
+        .contact__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; }
+        .contact__info .section-heading { color: var(--black); }
+        .contact__block { margin-top: 32px; }
+        .contact__block-label {
+            font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--purple); margin-bottom: 6px;
         }
-        .contact__social:hover { border-color: var(--accent); background: var(--accent-glow); }
-        .contact__social svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.6); transition: fill 0.3s; }
-        .contact__social:hover svg { fill: var(--accent); }
+        .contact__block-value { font-size: 0.92rem; font-weight: 300; color: var(--gray); }
+        .contact__block-value a { transition: color 0.3s; }
+        .contact__block-value a:hover { color: var(--purple); }
+        .contact__socials { display: flex; gap: 12px; margin-top: 36px; }
+        .social-icon {
+            width: 42px; height: 42px; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 14px;
+            background: var(--white);
+            transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease);
+        }
+        .social-icon:focus-visible { outline: 3px solid rgba(139,47,139,0.35); outline-offset: 2px; }
+        .social-icon:hover { transform: translateY(-1px); border-color: var(--purple); background: var(--purple-glow); box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
+        .social-icon svg { width: 16px; height: 16px; fill: var(--gray); transition: fill 0.25s var(--ease); }
+        .social-icon:hover svg { fill: var(--purple); }
+
+        .social-icon--instagram,
+        .social-icon--tiktok { border-color: transparent; }
+
+        .social-icon--instagram {
+            background:
+                radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+        }
+        .social-icon--instagram svg { fill: var(--white); }
+        .social-icon--instagram:hover {
+            border-color: transparent;
+            background:
+                radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.14);
+        }
+        .social-icon--instagram:hover svg { fill: var(--white); }
+
+        .social-icon--tiktok {
+            background: #111;
+            box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+        }
+        .social-icon--tiktok svg { fill: var(--white); }
+        .social-icon--tiktok:hover {
+            border-color: transparent;
+            background: #111;
+            box-shadow:
+                0 14px 34px rgba(0,0,0,0.18),
+                -6px 0 18px rgba(37,244,238,0.22),
+                6px 0 18px rgba(254,44,85,0.22);
+        }
+        .social-icon--tiktok:hover svg { fill: var(--white); }
 
         /* Form */
-        .form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .form__group { position: relative; }
         .form__group--full { grid-column: 1 / -1; }
         .form__label {
-            display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
-            color: rgba(255,255,255,0.35); margin-bottom: 8px; text-transform: uppercase;
+            display: block; font-size: 0.68rem; font-weight: 500;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            color: var(--gray-light); margin-bottom: 8px;
         }
         .form__input, .form__select, .form__textarea {
-            width: 100%; padding: 14px 16px;
-            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400;
-            color: var(--white);
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius-md); outline: none;
-            transition: all 0.3s var(--ease);
-            -webkit-appearance: none;
+            width: 100%; padding: 13px 16px;
+            font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+            color: var(--dark); background: var(--off-white);
+            border: 1px solid var(--border); outline: none;
+            transition: border-color 0.3s; -webkit-appearance: none;
         }
-        .form__input::placeholder, .form__textarea::placeholder { color: rgba(255,255,255,0.2); }
-        .form__input:focus, .form__select:focus, .form__textarea:focus {
-            border-color: var(--accent); background: rgba(200,162,107,0.04);
-            box-shadow: 0 0 0 3px rgba(200,162,107,0.08);
-        }
-        .form__select { cursor: pointer; color: rgba(255,255,255,0.2); }
-        .form__select.has-value { color: var(--white); }
-        .form__select option { background: var(--gray-900); color: var(--white); }
-        .form__textarea { resize: vertical; min-height: 100px; }
+        .form__input::placeholder, .form__textarea::placeholder { color: #bbb; }
+        .form__input:focus, .form__select:focus, .form__textarea:focus { border-color: var(--purple); }
+        .form__select { cursor: pointer; color: #bbb; }
+        .form__select.has-value { color: var(--dark); }
+        .form__select option { color: var(--dark); }
+        .form__textarea { resize: vertical; min-height: 90px; }
         .form__checks { display: flex; flex-wrap: wrap; gap: 10px; }
         .form__check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .form__check input { display: none; }
         .form__check-box {
-            width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.03);
+            width: 18px; height: 18px; border: 1.5px solid var(--border);
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.25s var(--ease);
+            transition: all 0.25s; flex-shrink: 0;
         }
-        .form__check input:checked + .form__check-box { border-color: var(--accent); background: var(--accent); }
-        .form__check input:checked + .form__check-box::after { content: '\2713'; font-size: 0.7rem; color: var(--black); font-weight: 700; }
-        .form__check-text { font-size: 0.8rem; font-weight: 400; color: rgba(255,255,255,0.5); }
+        .form__check input:checked + .form__check-box { border-color: var(--purple); background: var(--purple); }
+        .form__check input:checked + .form__check-box::after { content: '\2713'; font-size: 0.65rem; color: white; font-weight: 700; }
+        .form__check-text { font-size: 0.8rem; font-weight: 400; color: var(--gray); }
         .form__submit { grid-column: 1 / -1; margin-top: 8px; }
-        .form__submit .btn { width: 100%; justify-content: center; font-size: 0.85rem; padding: 18px; }
-        .form__success { display: none; grid-column: 1 / -1; text-align: center; padding: 60px 20px; }
-        .form__success.show { display: block; animation: heroFade 0.5s var(--ease) forwards; }
-        .form__success-icon { font-size: 2.5rem; margin-bottom: 16px; }
-        .form__success-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--white); margin-bottom: 8px; }
-        .form__success-text { font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.5); }
+        .form__submit .btn { width: 100%; text-align: center; }
+        .form__success { display: none; grid-column: 1 / -1; text-align: center; padding: 48px 16px; }
+        .form__success.show { display: block; animation: fadeUp 0.5s var(--ease) forwards; }
+        .form__success-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; color: var(--black); margin-bottom: 8px; }
+        .form__success-text { font-size: 0.9rem; font-weight: 300; color: var(--gray); }
 
         /* ═══════════════════════════════════════
            FOOTER
            ═══════════════════════════════════════ */
-        .footer {
-            background: var(--black); border-top: 1px solid rgba(255,255,255,0.04);
-            padding: 48px 40px 36px;
-        }
+        .footer { background: var(--off-white); border-top: 1px solid var(--border); padding: 48px 24px 36px; }
         .footer__inner {
-            max-width: 1200px; margin: 0 auto;
+            max-width: var(--max-w); margin: 0 auto;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .footer__brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; color: var(--white); }
-        .footer__brand span { color: var(--accent); font-style: italic; }
-        .footer__copy { font-size: 0.72rem; font-weight: 400; color: var(--gray-500); }
+        .footer__logo img { height: 60px; width: auto; object-fit: contain; }
+        .footer__copy { font-size: 0.72rem; font-weight: 400; color: var(--gray-light); }
         .footer__links { display: flex; gap: 20px; }
-        .footer__links a { font-size: 0.72rem; font-weight: 500; color: var(--gray-500); transition: color 0.3s; }
-        .footer__links a:hover { color: var(--accent); }
+        .footer__links a { font-size: 0.72rem; font-weight: 500; color: var(--gray); letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s; }
+        .footer__links a:hover { color: var(--purple); }
 
         /* ═══════════════════════════════════════
-           RESPONSIVE
+           MOBILE - IPHONE OPTIMIZED
            ═══════════════════════════════════════ */
         @media (max-width: 1024px) {
-            .section { padding: 80px 28px; }
-            .about { gap: 48px; }
-            .bento { grid-template-columns: repeat(2, 1fr); }
-            .bento__card--wide { grid-column: span 1; }
-            .contact__grid { grid-template-columns: 1fr; gap: 60px; }
+            .features__grid { gap: 32px; }
+            .about__grid { gap: 48px; }
+            .services__grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+            .contact__grid { grid-template-columns: 1fr; gap: 48px; }
         }
+
         @media (max-width: 768px) {
-            .nav { padding: 16px 20px; }
-            .nav.scrolled { padding: 12px 20px; }
-            .nav__menu {
-                position: fixed; inset: 0; background: rgba(9,9,11,0.98);
-                backdrop-filter: blur(24px); flex-direction: column;
-                justify-content: center; gap: 28px;
+            .nav { padding: 0 20px; }
+            .nav__inner { height: 140px; }
+            .nav__logo img { height: 120px; }
+            .nav__links {
+                position: fixed; inset: 0; background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+                flex-direction: column; justify-content: center; gap: 24px;
                 opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
             }
-            .nav__menu.open { opacity: 1; pointer-events: all; }
-            .nav__menu a { font-size: 1rem; color: rgba(255,255,255,0.7); }
-            .nav__burger { display: flex; }
-            .section { padding: 64px 20px; }
-            .about { grid-template-columns: 1fr; gap: 32px; }
-            .about__img-wrapper { aspect-ratio: 16/10; }
-            .bento { grid-template-columns: 1fr; }
+            .nav__links.open { opacity: 1; pointer-events: all; }
+            .nav__links a { font-size: 1rem; letter-spacing: 0.12em; color: var(--dark); }
+            .burger { display: flex; }
+
+            .hero { min-height: 100svh; }
+            .hero__content { padding: 100px 20px 40px; }
+            .hero__title { font-size: clamp(2.4rem, 9vw, 3.6rem); }
+
+            .section { padding: 72px 20px; }
+            .features__grid { grid-template-columns: 1fr; gap: 40px; }
+            .about__grid { grid-template-columns: 1fr; gap: 32px; }
+            .about__img { aspect-ratio: 3/3.5; }
+            .services__grid { grid-template-columns: 1fr; }
+            .svc-card { padding: 32px 24px; }
+            .gallery__grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px;
+                padding: 0 4px 10px;
+                margin-top: 44px;
+            }
+            .gallery__grid::-webkit-scrollbar { display: none; }
+            .gallery__item { flex: 0 0 86%; scroll-snap-align: center; }
             .form { grid-template-columns: 1fr; }
-            .quote-break { padding: 72px 20px; }
+            .quote-section { padding: 60px 20px; }
             .footer__inner { flex-direction: column; gap: 16px; text-align: center; }
         }
-        @media (max-width: 480px) {
-            .hero__btns { flex-direction: column; width: 100%; padding: 0 16px; }
-            .btn { width: 100%; justify-content: center; }
-            .about__img-overlay { gap: 20px; padding: 16px 18px; }
-            .event-pill { padding: 12px 20px; font-size: 0.78rem; }
+
+        @media (max-width: 430px) {
+            /* iPhone Pro Max and smaller */
+            .hero__title { font-size: 2.3rem; }
+            .hero__sub { font-size: 0.92rem; }
+            .hero__btn { padding: 14px 32px; width: 100%; text-align: center; }
+            .section-heading { font-size: 1.8rem; }
+            .feature__title { font-size: 1.2rem; }
+            .pill { padding: 10px 20px; font-size: 0.78rem; }
+            .nav__inner { height: 120px; }
+            .nav__logo img { height: 105px; }
+        }
+
+        @media (max-width: 375px) {
+            /* iPhone SE / mini */
+            .hero__title { font-size: 2rem; }
+            .hero__content { padding: 90px 16px 36px; }
+            .section { padding: 56px 16px; }
+        }
+
+        /* Safe areas for notch iPhones */
+        @supports (padding: env(safe-area-inset-top)) {
+            .nav { padding-top: env(safe-area-inset-top); }
+            .footer { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
@@ -498,195 +497,230 @@
 
     <!-- ═══ NAV ═══ -->
     <nav class="nav" id="nav">
-        <a href="#" class="nav__logo">Nella's <span>Perfect</span> Mix</a>
-        <ul class="nav__menu" id="navMenu">
-            <li><a href="#about" onclick="closeNav()">About</a></li>
-            <li><a href="#services" onclick="closeNav()">Services</a></li>
-            <li><a href="#events" onclick="closeNav()">Events</a></li>
-            <li><a href="#contact" onclick="closeNav()" class="nav__cta">Inquire Now</a></li>
-        </ul>
-        <div class="nav__burger" id="burger" onclick="toggleNav()">
-            <span></span><span></span><span></span>
+        <div class="nav__inner">
+            <a href="#" class="nav__logo"><img src="assets/logo.png" alt="Nella's Perfect Mix" /></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#services" onclick="closeMenu()">Services</a></li>
+                <li><a href="#events" onclick="closeMenu()">Events</a></li>
+                <li><a href="https://www.honeybook.com/widget/nellas_perfect_mix_llc_296847/cf_id/698816091425a8002c721485" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="nav__cta-btn" aria-label="Inquire now on HoneyBook (opens in a new tab)">Inquire Now</a></li>
+            </ul>
+            <div class="burger" id="burger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
 
     <!-- ═══ HERO ═══ -->
     <section class="hero">
-        <div class="hero__mesh"></div>
+        <div class="hero__bg"></div>
+        <div class="hero__overlay"></div>
         <div class="hero__content">
-            <div class="hero__badge">Traveling Bartender Service</div>
-            <h1 class="hero__title">Where <em>Details</em><br>Meet Cocktails</h1>
+            <p class="hero__label">Traveling Bartender Service</p>
+            <h1 class="hero__title">The Start of an <em>Unforgettable</em> Experience</h1>
             <p class="hero__sub">Custom cocktails, elevated service, and unforgettable moments — brought directly to your celebration.</p>
-            <div class="hero__btns">
-                <a href="#contact" class="btn btn--gold">Book Your Event</a>
-                <a href="#services" class="btn btn--ghost">Explore Services</a>
-            </div>
-        </div>
-        <div class="hero__scroll">
-            <span>Scroll</span>
-            <div class="hero__scroll-bar"></div>
+            <a href="https://www.honeybook.com/widget/nellas_perfect_mix_llc_296847/cf_id/698816091425a8002c721485" target="_blank" rel="noopener noreferrer" class="hero__btn" aria-label="Book now on HoneyBook (opens in a new tab)">Book Now</a>
         </div>
     </section>
 
-    <!-- ═══ MARQUEE ═══ -->
-    <div class="marquee">
-        <div class="marquee__track">
-            <span class="marquee__item">Custom Cocktails</span>
-            <span class="marquee__item">Signature Menus</span>
-            <span class="marquee__item">Full-Service Bar</span>
-            <span class="marquee__item">Professional Staff</span>
-            <span class="marquee__item">Specialty Themes</span>
-            <span class="marquee__item">Mocktail Options</span>
-            <span class="marquee__item">Event Styling</span>
-            <span class="marquee__item">Custom Cocktails</span>
-            <span class="marquee__item">Signature Menus</span>
-            <span class="marquee__item">Full-Service Bar</span>
-            <span class="marquee__item">Professional Staff</span>
-            <span class="marquee__item">Specialty Themes</span>
-            <span class="marquee__item">Mocktail Options</span>
-            <span class="marquee__item">Event Styling</span>
-        </div>
-    </div>
-
-    <!-- ═══ ABOUT ═══ -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="about">
-                <div class="about__visual fade-left">
-                    <div class="about__img-wrapper">
-                        <img src="https://images.pexels.com/photos/5638732/pexels-photo-5638732.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Professional bartender crafting cocktails" loading="lazy">
-                        <div class="about__img-overlay">
-                            <div class="about__img-stat">
-                                <div class="about__img-stat-num">500+</div>
-                                <div class="about__img-stat-label">Events</div>
-                            </div>
-                            <div class="about__img-stat">
-                                <div class="about__img-stat-num">100%</div>
-                                <div class="about__img-stat-label">Custom</div>
-                            </div>
-                            <div class="about__img-stat">
-                                <div class="about__img-stat-num">5.0</div>
-                                <div class="about__img-stat-label">Rating</div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- ═══ THREE FEATURES ═══ -->
+    <section class="section">
+        <div class="container features">
+            <div class="features__intro reveal">
+                <p class="section-label">Why Choose Us</p>
+                <h2 class="section-heading">Where <em>Details</em> Meet Cocktails</h2>
+                <div class="divider divider--center"></div>
+                <p class="section-text">We handle the bar so you can be present for every toast, laugh, and moment that matters.</p>
+            </div>
+            <div class="features__grid">
+                <div class="feature reveal">
+                    <div class="feature__icon">&#127864;</div>
+                    <h3 class="feature__title">Bespoke Cocktails</h3>
+                    <p class="feature__text">Custom signature menus designed around your event's theme, taste, and vision — crafted with precision and flair.</p>
                 </div>
-                <div class="about__content fade-right">
-                    <div class="overline">Our Story</div>
-                    <h2 class="section-title">Crafted with Passion,<br><em>Served with Style</em></h2>
-                    <p class="section-text">NellasPerfectMix is a traveling bartender service delivering stylish, stress-free experiences with custom cocktails, mocktails, and professional staff for every celebration.</p>
-                    <br>
-                    <p class="section-text">We bring the bar to you — so you can stay present with your guests while we handle the details, the flow, and the pour.</p>
-                    <div class="about__tags">
-                        <span class="about__tag">Custom Themes</span>
-                        <span class="about__tag">Signature Menus</span>
-                        <span class="about__tag">Elevated Service</span>
-                        <span class="about__tag">Intimate to Large</span>
-                    </div>
+                <div class="feature reveal">
+                    <div class="feature__icon">&#10024;</div>
+                    <h3 class="feature__title">Expertise &amp; Style</h3>
+                    <p class="feature__text">Professional bartenders and wait staff who bring polish, personality, and seamless service to every celebration.</p>
+                </div>
+                <div class="feature reveal">
+                    <div class="feature__icon">&#127912;</div>
+                    <h3 class="feature__title">Creative Designs</h3>
+                    <p class="feature__text">Specialty themes and elevated bar styling that complement your event aesthetic and leave a lasting impression.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ABOUT / FOUNDER ═══ -->
+    <section class="section section--light" id="about">
+        <div class="container">
+            <div class="about__grid">
+                <div class="reveal-left">
+                    <img src="assets/photo.jpg" alt="Jenella - Founder of NellasPerfectMix" class="about__img" />
+                </div>
+                <div class="reveal-right">
+                    <p class="section-label">Meet the Founder</p>
+                    <h2 class="section-heading">Meet the Founder — <em>Jenella</em></h2>
+                    <div class="divider"></div>
+                    <p class="section-text">Jenella is the founder and creative force behind NELLASPERFECTMIX, a premier mobile bartending and event experience company. With over 20 years of bartending experience, she specializes in creating elevated cocktail moments that transform every celebration.</p>
+                    <p class="section-text" style="margin-top: 16px;">Her passion goes beyond pouring drinks — it’s about delivering beautiful presentation, seamless service, and a welcoming atmosphere for every guest. From intimate gatherings to luxury events, Jenella brings professionalism, creativity, and a personal touch to each experience.</p>
+                    <p class="section-text" style="margin-top: 16px;">When you book NELLASPERFECTMIX, you’re not just hiring a bartender — you’re partnering with a seasoned professional who’s passionate about making your vision come to life.</p>
+                    <p class="section-text" style="margin-top: 16px;"><em>Where Details meet cocktails.</em> Because the magic is in the mix — and the details make it unforgettable.</p>
+                    <a href="#contact" class="btn btn--dark" style="margin-top: 32px;">Get In Touch</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ═══ SERVICES ═══ -->
-    <section class="section section--dark" id="services">
+    <section class="section" id="services">
         <div class="container">
-            <div class="services__header fade-in">
-                <div class="overline">What We Offer</div>
-                <h2 class="section-title">Bespoke <em>Bar Experiences</em></h2>
-                <p class="section-text">Every detail curated — from the first sip to the last toast.</p>
+            <div class="services__header reveal">
+                <p class="section-label">Our Services</p>
+                <h2 class="section-heading">What We <em>Offer</em></h2>
+                <div class="divider divider--center"></div>
+                <p class="section-text">Every detail thoughtfully curated — from the first sip to the last toast.</p>
+                <div class="trust-line" aria-label="Credentials">
+                    <span class="trust-badge">Bartending License</span>
+                    <span class="trust-badge">Food Handler License</span>
+                    <span class="trust-badge">Insured</span>
+                </div>
             </div>
-            <div class="bento">
-                <div class="bento__card bento__card--wide fade-in">
-                    <div class="bento__icon">&#127864;</div>
-                    <h3 class="bento__title">Full-Service Mobile Bar + Event Staff</h3>
-                    <p class="bento__text">Complete bar setup with professional equipment, premium glassware, and a full team to deliver a seamless, unforgettable experience at your venue.</p>
+            <div class="services__grid">
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">&#127864;</div>
+                    <h3 class="svc-card__title">Full-Service Mobile Bar</h3>
+                    <p class="svc-card__text">Complete bar setup with professional equipment, premium glassware, and everything needed for a seamless experience.</p>
                 </div>
-                <div class="bento__card fade-in">
-                    <div class="bento__icon">&#10024;</div>
-                    <h3 class="bento__title">Custom Cocktails</h3>
-                    <p class="bento__text">Signature drinks crafted exclusively for your event with personalized menus that match your theme.</p>
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">&#10024;</div>
+                    <h3 class="svc-card__title">Custom Cocktails &amp; Menus</h3>
+                    <p class="svc-card__text">Signature cocktails crafted exclusively for your event with personalized menus that match your theme.</p>
                 </div>
-                <div class="bento__card fade-in">
-                    <div class="bento__icon">&#127807;</div>
-                    <h3 class="bento__title">Mocktail Options</h3>
-                    <p class="bento__text">Elevated non-alcoholic beverages that are just as beautiful and flavorful for every guest.</p>
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">&#127865;</div>
+                    <h3 class="svc-card__title">Mocktail Options</h3>
+                    <p class="svc-card__text">Elevated non-alcoholic beverages that are just as beautiful and flavorful for every guest.</p>
                 </div>
-                <div class="bento__card fade-in">
-                    <div class="bento__icon">&#128084;</div>
-                    <h3 class="bento__title">Professional Bartenders</h3>
-                    <p class="bento__text">Experienced, polished bartenders who bring personality, precision, and flair to every pour.</p>
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">🫱🏻‍🫲🏿</div>
+                    <h3 class="svc-card__title">Professional Bartenders</h3>
+                    <p class="svc-card__text">Experienced, polished bartenders who bring personality, precision, and flair to every event.</p>
                 </div>
-                <div class="bento__card bento__card--wide fade-in">
-                    <div class="bento__icon">&#127912;</div>
-                    <h3 class="bento__title">Specialty Themes + Event Styling</h3>
-                    <p class="bento__text">From elegant to bold, we design bar setups that complement your event's aesthetic and elevate the entire atmosphere. Full wait staff also available.</p>
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">&#127860;</div>
+                    <h3 class="svc-card__title">Wait Staff Available</h3>
+                    <p class="svc-card__text">Professional servers to ensure your guests are attended to with care and seamless hospitality.</p>
+                </div>
+                <div class="svc-card reveal">
+                    <div class="svc-card__icon">&#127912;</div>
+                    <h3 class="svc-card__title">Specialty Themes</h3>
+                    <p class="svc-card__text">From elegant to bold, we design bar setups that elevate the entire atmosphere of your event.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ QUOTE BREAK ═══ -->
-    <div class="quote-break">
-        <div class="quote-break__inner fade-in">
-            <div class="quote-break__mark">"</div>
-            <p class="quote-break__text">We bring the bar to you — so you can stay <span>present</span> with your guests.</p>
-        </div>
+    <!-- ═══ QUOTE ═══ -->
+    <div class="quote-section">
+        <p class="quote__text reveal">"We bring the bar to you — so you can stay <span>present</span> with your guests."</p>
     </div>
 
     <!-- ═══ PERFECT FOR ═══ -->
-    <section class="section" id="events" style="background: var(--cream);">
+    <section class="section section--light events-section" id="events">
         <div class="container">
-            <div class="events__inner fade-in">
-                <div class="overline">Perfect For</div>
-                <h2 class="section-title">Every <em>Celebration</em></h2>
-                <div class="events__grid">
-                    <span class="event-pill">Birthdays</span>
-                    <span class="event-pill">Weddings</span>
-                    <span class="event-pill">Bridal Showers</span>
-                    <span class="event-pill">Baby Showers</span>
-                    <span class="event-pill">Graduations</span>
-                    <span class="event-pill">Corporate Events</span>
-                    <span class="event-pill">Private Parties</span>
-                    <span class="event-pill">Celebrations</span>
+            <div class="reveal">
+                <p class="section-label">Perfect For</p>
+                <h2 class="section-heading">Every <em>Celebration</em></h2>
+                <div class="divider divider--center"></div>
+            </div>
+            <div class="events__pills reveal">
+                <span class="pill">Birthdays</span>
+                <span class="pill">Weddings</span>
+                <span class="pill">Bridal Showers</span>
+                <span class="pill">Baby Showers</span>
+                <span class="pill">Graduations</span>
+                <span class="pill">Corporate Events</span>
+                <span class="pill">Private Parties</span>
+                <span class="pill">Celebrations</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ GALLERY ═══ -->
+    <section class="section gallery-section" id="gallery">
+        <div class="container">
+            <div class="gallery__header reveal">
+                <p class="section-label">Real Events</p>
+                <h2 class="section-heading">Photos &amp; <em>Video</em></h2>
+                <div class="divider divider--center"></div>
+                <p class="section-text">A peek at the energy we bring — from setup to last call.</p>
+            </div>
+            <div class="gallery__grid" aria-label="Photo and video gallery">
+                <a class="gallery__item reveal" href="assets/gallery/team-photo-1.jpeg" target="_blank" rel="noopener noreferrer" aria-label="Open team photo (opens in a new tab)">
+                    <img src="assets/gallery/team-photo-1.jpeg" alt="NellasPerfectMix team at an event" loading="lazy" />
+                </a>
+                <a class="gallery__item reveal" href="assets/gallery/event-photo-1.jpeg" target="_blank" rel="noopener noreferrer" aria-label="Open event photo (opens in a new tab)">
+                    <img src="assets/gallery/event-photo-1.jpeg" alt="Jenella at an event bar setup" loading="lazy" />
+                </a>
+                <a class="gallery__item reveal" href="assets/photo.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open founder photo (opens in a new tab)">
+                    <img src="assets/photo.jpg" alt="Jenella posing at a bar setup" loading="lazy" />
+                </a>
+                <div class="gallery__item gallery__item--video reveal" aria-label="Event video">
+                    <video controls playsinline preload="metadata" poster="assets/gallery/event-video-1-poster.jpg">
+                        <source src="assets/gallery/event-video-1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="gallery__item gallery__item--video reveal" aria-label="Event video">
+                    <video controls playsinline preload="metadata" poster="assets/gallery/event-video-2-poster.jpg">
+                        <source src="assets/gallery/event-video-2.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ═══ CONTACT ═══ -->
-    <section class="section section--dark" id="contact">
+    <section class="section" id="contact">
         <div class="container">
             <div class="contact__grid">
-                <div class="contact__info fade-left">
-                    <div class="overline">Get In Touch</div>
-                    <h2 class="section-title">Let's Create<br><em>Something Special</em></h2>
+                <div class="contact__info reveal-left">
+                    <p class="section-label">Get In Touch</p>
+                    <h2 class="section-heading">Let's Create <em>Something Special</em></h2>
+                    <div class="divider"></div>
                     <p class="section-text">Ready to elevate your next event? Fill out the form and we'll craft the perfect experience for you and your guests.</p>
-                    <div class="contact__block">
-                        <div class="contact__label">Email</div>
-                        <div class="contact__value"><a href="mailto:Nellaperfectmix@gmail.com">Nellaperfectmix@gmail.com</a></div>
+                    <div class="trust-line trust-line--left" aria-label="Credentials">
+                        <span class="trust-badge">Bartending License</span>
+                        <span class="trust-badge">Food Handler License</span>
+                        <span class="trust-badge">Insured</span>
                     </div>
                     <div class="contact__block">
-                        <div class="contact__label">Follow Us</div>
-                        <div class="contact__value">@nellasperfectmix</div>
+                        <div class="contact__block-label">Email</div>
+                        <div class="contact__block-value"><a href="mailto:Nellaperfectmix@gmail.com">Nellaperfectmix@gmail.com</a></div>
+                    </div>
+                    <div class="contact__block">
+                        <div class="contact__block-label">Follow Us</div>
+                        <div class="contact__block-value">@nellasperfectmix</div>
                     </div>
                     <div class="contact__socials">
-                        <a href="https://instagram.com/nellasperfectmix" target="_blank" rel="noopener" class="contact__social" aria-label="Instagram">
+                        <a href="https://instagram.com/nellasperfectmix" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--instagram" aria-label="Instagram (opens in a new tab)">
                             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
-                        <a href="https://tiktok.com/@nellasperfectmix" target="_blank" rel="noopener" class="contact__social" aria-label="TikTok">
+                        <a href="https://tiktok.com/@nellasperfectmix" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--tiktok" aria-label="TikTok (opens in a new tab)">
                             <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.88a8.28 8.28 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.29z"/></svg>
                         </a>
-                        <a href="mailto:Nellaperfectmix@gmail.com" class="contact__social" aria-label="Email">
+                        <a href="mailto:Nellaperfectmix@gmail.com" class="social-icon" aria-label="Email">
                             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                         </a>
                     </div>
                 </div>
-                <div class="contact__form-wrap fade-right">
-                    <form class="form" id="contactForm" onsubmit="submitForm(event)">
-                        <div class="form__group">
-                            <label class="form__label">Full Name</label>
-                            <input type="text" class="form__input" name="fullName" placeholder="Your full name" required>
+                <div class="contact__form-wrap reveal-right">
+                    <form class="form" id="contactForm" name="inquiry" method="POST" data-netlify="true" onsubmit="submitForm(event)">
+                        <input type="hidden" name="form-name" value="inquiry">
+                        <div class="form__group form__group--full">
+                            <label class="form__label">Name</label>
+                            <input type="text" class="form__input" name="name" placeholder="Your name" required>
                         </div>
                         <div class="form__group">
                             <label class="form__label">Email</label>
@@ -695,14 +729,6 @@
                         <div class="form__group">
                             <label class="form__label">Phone</label>
                             <input type="tel" class="form__input" name="phone" placeholder="(000) 000-0000">
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Event Date</label>
-                            <input type="date" class="form__input" name="eventDate" required>
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Event Location</label>
-                            <input type="text" class="form__input" name="location" placeholder="City, Venue, or Address">
                         </div>
                         <div class="form__group">
                             <label class="form__label">Event Type</label>
@@ -715,45 +741,19 @@
                             </select>
                         </div>
                         <div class="form__group">
-                            <label class="form__label">Guest Count</label>
-                            <input type="number" class="form__input" name="guestCount" placeholder="Estimated guests">
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label">Drink Preference</label>
-                            <select class="form__select" name="drinkPref" onchange="this.classList.toggle('has-value', this.value !== '')">
-                                <option value="">Select preference</option>
-                                <option>Cocktails Only</option>
-                                <option>Mocktails Only</option>
-                                <option>Both Cocktails &amp; Mocktails</option>
-                            </select>
+                            <label class="form__label">Event Date</label>
+                            <input type="date" class="form__input" name="eventDate">
                         </div>
                         <div class="form__group form__group--full">
-                            <label class="form__label">Services Needed</label>
-                            <div class="form__checks">
-                                <label class="form__check"><input type="checkbox" name="services" value="Full-Service Mobile Bar"><span class="form__check-box"></span><span class="form__check-text">Full-Service Mobile Bar</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Bar Setup + Service"><span class="form__check-box"></span><span class="form__check-text">Bar Setup + Service</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Custom Cocktails"><span class="form__check-box"></span><span class="form__check-text">Custom Cocktails</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Mocktail Menu"><span class="form__check-box"></span><span class="form__check-text">Mocktail Menu</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Professional Bartenders"><span class="form__check-box"></span><span class="form__check-text">Bartenders</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Wait Staff"><span class="form__check-box"></span><span class="form__check-text">Wait Staff</span></label>
-                                <label class="form__check"><input type="checkbox" name="services" value="Specialty Themes"><span class="form__check-box"></span><span class="form__check-text">Specialty Themes</span></label>
-                            </div>
-                        </div>
-                        <div class="form__group form__group--full">
-                            <label class="form__label">Theme Details</label>
-                            <input type="text" class="form__input" name="theme" placeholder="Describe your theme or vision">
-                        </div>
-                        <div class="form__group form__group--full">
-                            <label class="form__label">Message</label>
-                            <textarea class="form__textarea" name="message" placeholder="Tell us more about your event..."></textarea>
+                            <label class="form__label">Tell us about your event</label>
+                            <textarea class="form__textarea" name="message" placeholder="Guest count, location, vision — anything you'd like us to know!" style="min-height:110px;"></textarea>
                         </div>
                         <div class="form__submit">
-                            <button type="submit" class="btn btn--gold">Send Inquiry</button>
+                            <button type="submit" class="btn btn--dark">Send Inquiry</button>
                         </div>
                         <div class="form__success" id="formSuccess">
-                            <div class="form__success-icon">&#10024;</div>
                             <h3 class="form__success-title">Thank You!</h3>
-                            <p class="form__success-text">We received your message and will respond within 24-48 hours.</p>
+                            <p class="form__success-text">We received your inquiry and will be in touch within 24-48 hours.</p>
                         </div>
                     </form>
                 </div>
@@ -764,7 +764,7 @@
     <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
         <div class="footer__inner">
-            <div class="footer__brand">Nella's <span>Perfect</span> Mix</div>
+            <div class="footer__logo"><img src="assets/logo.png" alt="Nella's Perfect Mix" /></div>
             <p class="footer__copy">&copy; 2026 NellasPerfectMix. All rights reserved.</p>
             <div class="footer__links">
                 <a href="https://instagram.com/nellasperfectmix" target="_blank" rel="noopener">Instagram</a>
@@ -775,45 +775,50 @@
     </footer>
 
     <script>
-        // Nav scroll
+        // Nav
         const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
 
-        // Mobile nav
-        function toggleNav() {
+        function toggleMenu() {
             document.getElementById('burger').classList.toggle('active');
-            document.getElementById('navMenu').classList.toggle('open');
-            document.body.style.overflow = document.getElementById('navMenu').classList.contains('open') ? 'hidden' : '';
+            document.getElementById('navLinks').classList.toggle('open');
+            document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
         }
-        function closeNav() {
+        function closeMenu() {
             document.getElementById('burger').classList.remove('active');
-            document.getElementById('navMenu').classList.remove('open');
+            document.getElementById('navLinks').classList.remove('open');
             document.body.style.overflow = '';
         }
 
         // Scroll reveal
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.fade-in, .fade-left, .fade-right').forEach(el => io.observe(el));
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
                 e.preventDefault();
                 const t = document.querySelector(this.getAttribute('href'));
-                if (t) window.scrollTo({ top: t.offsetTop - 72, behavior: 'smooth' });
+                if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
             });
         });
 
-        // Form
+        // Form — submit to Netlify Forms
         function submitForm(e) {
             e.preventDefault();
             const form = e.target;
-            form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
-            document.getElementById('formSuccess').classList.add('show');
+            const data = new URLSearchParams(new FormData(form)).toString();
+            fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+                .then(() => {
+                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
+                    document.getElementById('formSuccess').classList.add('show');
+                })
+                .catch(() => {
+                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
+                    document.getElementById('formSuccess').classList.add('show');
+                });
         }
     </script>
 </body>
