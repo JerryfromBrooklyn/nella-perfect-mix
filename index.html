@@ -595,44 +595,6 @@
         .form__success-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; color: var(--black); margin-bottom: 8px; }
         .form__success-text { font-size: 0.9rem; font-weight: 300; color: var(--gray); }
 
-        /* HoneyBook embed card (replaces bottom form) */
-        .hb-card {
-            border: 1px solid var(--border);
-            background: var(--white);
-            padding: 44px 32px;
-            box-shadow: 0 16px 60px rgba(0,0,0,0.06);
-        }
-        .hb-card__label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--purple);
-            margin-bottom: 14px;
-        }
-        .hb-card__title {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: var(--black);
-            margin-bottom: 14px;
-            line-height: 1.15;
-        }
-        .hb-card__text {
-            font-size: 0.95rem;
-            font-weight: 300;
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 26px;
-        }
-        .hb-card__fineprint {
-            margin-top: 14px;
-            font-size: 0.8rem;
-            font-weight: 300;
-            color: var(--gray-light);
-        }
-        .hb-card__fineprint a { color: var(--gray); text-decoration: underline; text-underline-offset: 3px; }
-
         /* ═══════════════════════════════════════
            FOOTER
            ═══════════════════════════════════════ */
@@ -918,7 +880,7 @@
                     <p class="section-label">Get In Touch</p>
                     <h2 class="section-heading">Let's Create <em>Something Special</em></h2>
                     <div class="divider"></div>
-                    <p class="section-text">Ready to elevate your next event? Tap below to open our HoneyBook inquiry form — we’ll respond within 24–48 hours.</p>
+                    <p class="section-text">Ready to elevate your next event? Fill out the form and we'll craft the perfect experience for you and your guests.</p>
                     <div class="trust-line trust-line--left" aria-label="Credentials">
                         <span class="trust-badge">Bartending License</span>
                         <span class="trust-badge">Food Handler License</span>
@@ -945,13 +907,92 @@
                     </div>
                 </div>
                 <div class="contact__form-wrap reveal-right">
-                    <div class="hb-card" aria-label="HoneyBook inquiry form">
-                        <div class="hb-card__label">HoneyBook</div>
-                        <div class="hb-card__title">Inquiry Form</div>
-                        <div class="hb-card__text">Submit your event details through our secure HoneyBook form for the fastest response and a custom quote.</div>
-                        <a class="btn btn--dark" href="https://www.honeybook.com/widget/nellas_perfect_mix_llc_296847/cf_id/698816091425a8002c721485" target="_blank" rel="noopener noreferrer" aria-label="Open HoneyBook inquiry form (opens in a new tab)">Open HoneyBook Form</a>
-                        <div class="hb-card__fineprint">Prefer email? <a href="mailto:Nellaperfectmix@gmail.com">Nellaperfectmix@gmail.com</a></div>
-                    </div>
+                    <form class="form" id="contactForm" name="inquiry" method="POST" data-netlify="true" onsubmit="submitForm(event)">
+                        <input type="hidden" name="form-name" value="inquiry">
+                        <div class="form__group form__group--full">
+                            <label class="form__label" for="field-name">Full Name</label>
+                            <input type="text" class="form__input" id="field-name" name="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-email">Email</label>
+                            <input type="email" class="form__input" id="field-email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-phone">Phone</label>
+                            <input type="tel" class="form__input" id="field-phone" name="phone" placeholder="(000) 000-0000">
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-eventType">Event Type</label>
+                            <select class="form__select" id="field-eventType" name="eventType" onchange="this.classList.toggle('has-value', this.value !== '')">
+                                <option value="">Select event type</option>
+                                <option>Birthday</option>
+                                <option>Wedding</option>
+                                <option>Bridal Shower</option>
+                                <option>Baby Shower</option>
+                                <option>Graduation</option>
+                                <option>Corporate Event</option>
+                                <option>Private Party</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-eventDate">Event Date</label>
+                            <input type="date" class="form__input" id="field-eventDate" name="eventDate">
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-eventLocation">Event Location</label>
+                            <input type="text" class="form__input" id="field-eventLocation" name="eventLocation" placeholder="City / State">
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-guestCount">Estimated Guest Count</label>
+                            <input type="number" class="form__input" id="field-guestCount" name="guestCount" placeholder="e.g. 50" min="1">
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="field-drinkPref">Cocktail / Mocktail Preference</label>
+                            <select class="form__select" id="field-drinkPref" name="drinkPreference" onchange="this.classList.toggle('has-value', this.value !== '')">
+                                <option value="">Select preference</option>
+                                <option>Cocktails Only</option>
+                                <option>Mocktails Only</option>
+                                <option>Both</option>
+                                <option>Not Sure Yet</option>
+                            </select>
+                        </div>
+                        <div class="form__group form__group--full">
+                            <label class="form__label">Services Needed</label>
+                            <div class="form__checks">
+                                <label class="form__check" tabindex="0" aria-label="Bartender">
+                                    <input type="checkbox" name="services" value="Bartender">
+                                    <span class="form__check-box" aria-hidden="true"></span>
+                                    <span class="form__check-text">Bartender</span>
+                                </label>
+                                <label class="form__check" tabindex="0" aria-label="Full Bar Service">
+                                    <input type="checkbox" name="services" value="Full Bar Service">
+                                    <span class="form__check-box" aria-hidden="true"></span>
+                                    <span class="form__check-text">Full Bar Service</span>
+                                </label>
+                                <label class="form__check" tabindex="0" aria-label="Wait Staff">
+                                    <input type="checkbox" name="services" value="Wait Staff">
+                                    <span class="form__check-box" aria-hidden="true"></span>
+                                    <span class="form__check-text">Wait Staff</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form__group form__group--full">
+                            <label class="form__label" for="field-theme">Specialty Theme Details <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                            <input type="text" class="form__input" id="field-theme" name="specialtyTheme" placeholder="e.g. Tropical, Gatsby, Holiday…">
+                        </div>
+                        <div class="form__group form__group--full">
+                            <label class="form__label" for="field-message">Message / Additional Details</label>
+                            <textarea class="form__textarea" id="field-message" name="message" placeholder="Guest count, location, vision — anything you'd like us to know!" style="min-height:110px;"></textarea>
+                        </div>
+                        <div class="form__submit">
+                            <button type="submit" class="btn btn--dark">Send Inquiry</button>
+                        </div>
+                        <div class="form__success" id="formSuccess">
+                            <h3 class="form__success-title">Thank You!</h3>
+                            <p class="form__success-text">We received your inquiry and will respond within 24–48 hours.</p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1048,6 +1089,22 @@
         });
         document.addEventListener('click', closeAllPills);
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllPills(); });
+
+        // Form — submit to Netlify Forms
+        const submitForm = (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const data = new URLSearchParams(new FormData(form)).toString();
+            fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+                .then(() => {
+                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
+                    document.getElementById('formSuccess').classList.add('show');
+                })
+                .catch(() => {
+                    form.querySelectorAll('.form__group, .form__submit').forEach(g => g.style.display = 'none');
+                    document.getElementById('formSuccess').classList.add('show');
+                });
+        };
 
         // Gallery modal (lightbox)
         const galleryModal = document.getElementById('galleryModal');
